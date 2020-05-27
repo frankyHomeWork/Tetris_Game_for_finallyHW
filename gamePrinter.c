@@ -4,7 +4,6 @@
 #include <windows.h>
 
 HANDLE hand;
-int surface[FR_HEIGHT][FR_WIDTH] = {0};
 
 void initGamePrinter() {
     hand = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -50,19 +49,40 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(hand, loc);
 }
 
-void print_surface() {
+void print_surface(int surface[][FR_WIDTH]) {
     int x, y;
     for (x = 0; x < FR_WIDTH; x++) {
         for (y = 0; y < FR_HEIGHT; y++) {
             int row = y;
             int col = x;
             if (surface[row][col] == 0) {
-                printxy("0", x, y);
+                printxy(" ", x, y);
             } else {
                 printxy("1", x, y);
             }
         }
     }
+}
+
+void initGameFrame() {
+    int surface[FR_HEIGHT][FR_WIDTH] = {
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+
+    print_surface(surface);
+
 }
 
 void setColor(int color) { SetConsoleTextAttribute(hand, color); }

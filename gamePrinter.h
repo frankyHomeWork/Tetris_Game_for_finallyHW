@@ -14,6 +14,7 @@ void setColor(int color);
 void initGamePrinter();
 void print_block(int block[][FR_BOLCK_W], int x, int y);
 void erase_block(int block[][FR_BOLCK_W], int x, int y);
+void initGameFrame();
 
 #endif
 

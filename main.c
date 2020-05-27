@@ -7,6 +7,7 @@
 
 int main() {
     initGamePrinter();
+    initGameFrame();
     control_Block0();
 
     return 0;
