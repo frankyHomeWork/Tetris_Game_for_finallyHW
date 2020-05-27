@@ -17,6 +17,3 @@ void erase_block(int block[][FR_BOLCK_W], int x, int y);
 
 #endif
 
-
-
-
