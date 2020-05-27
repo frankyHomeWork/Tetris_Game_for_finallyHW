@@ -3,45 +3,6 @@
 #include <conio.h>
 #include "gamePrinter.h"
 
-#define block_h 4
-#define block_w 4
-int Block0[block_h][block_w] = {
-	{0, 0, 0, 0},
-	{0, 1, 1, 0},
-	{0, 1, 1, 0},
-	{0, 0, 0, 0}};
-void print_block(int block[][block_w], int x, int y)
-{
-	int w, h;
-	for (w = 0; w < block_w; w++)
-	{
-		for (h = 0; h < block_h; h++)
-		{
-			if (block[h][w] == 1)
-			{
-				printxy("O", x + w, y + h);
-			}
-		}
-	}
-}
-
-void erase_block(int block[][block_w], int x, int y)
-{
-	int w, h;
-	for (w = 0; w < block_w; w++)
-	{
-		for (h = 0; h < block_h; h++)
-		{
-			if (block[h][w] == 1)
-			{
-				printxy(" ", x + w, y + h);
-			}
-		}
-	}
-}
-
-
-
 void key_control()
 {
 	int ch;
@@ -78,6 +39,14 @@ void key_control()
 		}
 	}
 }
+
+
+int Block0[FR_BOLCK_H][FR_BOLCK_W] = {
+	{0, 0, 0, 0},
+	{0, 1, 1, 0},
+	{0, 1, 1, 0},
+	{0, 0, 0, 0}
+};
 
 void control_Block0()
 {

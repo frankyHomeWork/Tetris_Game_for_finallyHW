@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
-#include <conio.h>
+
 #include "gamePrinter.h"
 
-#define FR_HEIGHT 14
-#define FR_WIDTH 18
 
 HANDLE hand;
 int surface[FR_HEIGHT][FR_WIDTH] = {0};
@@ -12,6 +10,38 @@ int surface[FR_HEIGHT][FR_WIDTH] = {0};
 void initGamePrinter() {
     hand = GetStdHandle(STD_OUTPUT_HANDLE);
 	setCursorVisable(1);
+}
+
+
+
+void print_block(int block[][FR_BOLCK_W], int x, int y)
+{
+	int w, h;
+	for (w = 0; w < FR_BOLCK_W; w++)
+	{
+		for (h = 0; h < FR_BOLCK_H; h++)
+		{
+			if (block[h][w] == 1)
+			{
+				printxy("O", x + w, y + h);
+			}
+		}
+	}
+}
+
+void erase_block(int block[][FR_BOLCK_W], int x, int y)
+{
+	int w, h;
+	for (w = 0; w < FR_BOLCK_W; w++)
+	{
+		for (h = 0; h < FR_BOLCK_H; h++)
+		{
+			if (block[h][w] == 1)
+			{
+				printxy(" ", x + w, y + h);
+			}
+		}
+	}
 }
 
 
