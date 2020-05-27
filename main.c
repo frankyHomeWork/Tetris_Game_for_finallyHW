@@ -1,52 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
-
-#define HEIGHT 14
-#define WIDTH 18
-
-HANDLE hand;
-
-void setCursorVisable(int v)
-{
-	CONSOLE_CURSOR_INFO cursor_info = {100, v};
-	SetConsoleCursorInfo(hand, &cursor_info);
-}
-void gotoxy(int x, int y)
-{
-	COORD loc;
-	loc.X = x;
-	loc.Y = y;
-	SetConsoleCursorPosition(hand, loc);
-}
-
-void printxy(char *str, int x, int y)
-{
-	gotoxy(x, y);
-	printf("%s", str);
-}
-
-
-int surface[HEIGHT][WIDTH] = {0};
-void print_surface()
-{
-	int x, y;
-	for (x = 0; x < WIDTH; x++)
-	{
-		for (y = 0; y < HEIGHT; y++)
-		{
-			int row = y;
-			int col = x;
-			if (surface[row][col] == 0)
-			{
-				printxy("0", x, y);
-			}
-			else
-			{
-				printxy("1", x, y);
-			}
-		}
-	}
-}
+#include <conio.h>
+#include "gamePrinter.h"
 
 #define block_h 4
 #define block_w 4
@@ -85,18 +40,7 @@ void erase_block(int block[][block_w], int x, int y)
 	}
 }
 
-void for_sleep(int max)
-{
-	int i;
-	for (i = 0; i < max; i++)
-	{
-	}
-}
 
-void setColor(int color)
-{
-	SetConsoleTextAttribute(hand, color);
-}
 
 void key_control()
 {
@@ -178,10 +122,7 @@ void control_Block0()
 
 int main()
 {
-	hand = GetStdHandle(STD_OUTPUT_HANDLE);
-	setCursorVisable(1);
-
-
+	initGamePrinter();
 	control_Block0();
 
 	return 0;
