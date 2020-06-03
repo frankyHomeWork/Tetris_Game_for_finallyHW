@@ -4,11 +4,13 @@
 
 #include "gamePrinter.h"
 #include "userControl.h"
+#include "gameControler.h"
+#include "tetris.h"
 
 int main() {
     initGamePrinter();
     initGameFrame();
-    control_Block0();
+    letBlockDown();
 
     return 0;
 }

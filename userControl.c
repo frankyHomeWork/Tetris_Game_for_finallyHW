@@ -2,7 +2,6 @@
 
 #include <conio.h>
 #include <stdio.h>
-#include "gamePrinter.h"
 
 
 int Block0[FR_BOLCK_H][FR_BOLCK_W] = {
@@ -40,7 +39,6 @@ void control_Block0() {
                     print_block(Block0, cur_x, cur_y);
                     break;
                 case 113:  // q
-                    printf("ch: %d\n", ch);
                     return;
                     break;
             }

@@ -21,6 +21,29 @@ void print_block(int block[][FR_BOLCK_W], int x, int y) {
     }
 }
 
+void print_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
+    int w, h;
+    for (w = 0; w < FR_TETRIS_W; w++) {
+        for (h = 0; h < FR_TETRIS_H; h++) {
+            if (tetrisBlock.block[h][w] == 1) {
+                printxy("O", x + w, y + h);
+            }
+        }
+    }
+}
+
+void erase_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
+    int w, h;
+    for (w = 0; w < FR_TETRIS_W; w++) {
+        for (h = 0; h < FR_TETRIS_H; h++) {
+            if (tetrisBlock.block[h][w] == 1) {
+                printxy(" ", x + w, y + h);
+            }
+        }
+    }
+}
+
+
 void erase_block(int block[][FR_BOLCK_W], int x, int y) {
     int w, h;
     for (w = 0; w < FR_BOLCK_W; w++) {
