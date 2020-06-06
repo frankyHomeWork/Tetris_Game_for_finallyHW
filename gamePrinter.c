@@ -4,12 +4,30 @@
 #include <stdlib.h>
 #include <windows.h>
 
-PointNode *createCanvas(int height, int width);
+void initGameSurface();
+void showGameSurface();
+
 GameSurface createGameSurface(int height, int width);
-void initHand();
-void showCanvas(PointNode *pointNode);
-bool isSurfacehasFill(Point point);
 void setBoundary(GameSurface gameSurface);
+PointNode *createCanvas(int height, int width);
+
+
+bool isSurfacehasFill(Point point);
+bool isOverBoundary(Point point);
+bool check_can_add_block(TetrisPoints tetrisPoints);
+
+void setCanvas(Point point);
+void set_tetris_block(TetrisPoints tetrisPoints);
+
+
+void initHand();
+void setCursorVisable(int v);
+void printxy(char *str, int x, int y);
+void gotoxy(int x, int y);
+void setColor(int color);
+
+
+void showCanvas(PointNode *pointNode);//for test
 
 HANDLE hand;
 GameSurface gameSurface;
@@ -34,24 +52,14 @@ void showGameSurface() {
     while (current != NULL) {
         if (current->p.val == 1) {
             printxy("O", current->p.x, current->p.y);
+        } else if (current->p.val == 2) {
+            printxy("|", current->p.x, current->p.y);
+        } else if (current->p.val == 3) {
+            printxy("-", current->p.x, current->p.y);
         } else {
             printxy(" ", current->p.x, current->p.y);
         }
 
-        current = current->next;
-    }
-}
-
-void setBoundary(GameSurface gameSurface) {
-    PointNode *current = gameSurface.canvas;
-    while (current != NULL) {
-        if (current->p.y == FR_HEIGHT - 1) {
-            current->p.val = 1;
-        } else if (current->p.x == 0) {
-            current->p.val = 1;
-        } else if (current->p.x == FR_WIDTH - 1) {
-            current->p.val = 1;
-        }
         current = current->next;
     }
 }
@@ -66,6 +74,22 @@ GameSurface createGameSurface(int height, int width) {
 
     return gameSurface;
 }
+
+void setBoundary(GameSurface gameSurface) {
+    PointNode *current = gameSurface.canvas;
+    while (current != NULL) {
+        if (current->p.y == FR_HEIGHT - 1) {
+            current->p.val = 3;
+        } else if (current->p.x == 0) {
+            current->p.val = 2;
+        } else if (current->p.x == FR_WIDTH - 1) {
+            current->p.val = 2;
+        }
+        current = current->next;
+    }
+}
+
+
 
 PointNode *createCanvas(int height, int width) {
     PointNode *firstPointNode = NULL;
@@ -93,32 +117,9 @@ PointNode *createCanvas(int height, int width) {
     return firstPointNode;
 }
 
-void showCanvas(PointNode *pointNode) {
-    PointNode *current = pointNode;
-    while (current != NULL) {
-        printf("TEST: x: %d, y: %d val: %d\n", current->p.x, current->p.y,
-               current->p.val);
-        current = current->next;
-    }
-}
 
-void setCanvas(Point point) {
-    if (!isGameSurfaceInit) {
-        printf("isGameSurfaceInit is false\n");
-        return;
-    }
 
-    PointNode *current = gameSurface.canvas;
-    while (current != NULL) {
-        if (current->p.x == point.x && current->p.y == point.y) {
-            if (current->p.val != point.val) {
-                current->p.val = point.val;
-            }
-            return;
-        }
-        current = current->next;
-    }
-}
+
 
 bool isSurfacehasFill(Point point) {
     if (!isGameSurfaceInit) {
@@ -129,7 +130,7 @@ bool isSurfacehasFill(Point point) {
     PointNode *current = fixGameSurface.canvas;
     while (current != NULL) {
         if (current->p.x == point.x && current->p.y == point.y) {
-            if (current->p.val == 1) {
+            if (current->p.val >= 1) {
                 return true;
             } else {
                 return false;
@@ -170,6 +171,24 @@ bool check_can_add_block(TetrisPoints tetrisPoints) {
     return true;
 }
 
+void setCanvas(Point point) {
+    if (!isGameSurfaceInit) {
+        printf("isGameSurfaceInit is false\n");
+        return;
+    }
+
+    PointNode *current = gameSurface.canvas;
+    while (current != NULL) {
+        if (current->p.x == point.x && current->p.y == point.y) {
+            if (current->p.val != point.val) {
+                current->p.val = point.val;
+            }
+            return;
+        }
+        current = current->next;
+    }
+}
+
 void set_tetris_block(TetrisPoints tetrisPoints) {
     PointNode *current = tetrisPoints.blocks;
 
@@ -207,6 +226,15 @@ void gotoxy(int x, int y) {
 }
 
 void setColor(int color) { SetConsoleTextAttribute(hand, color); }
+
+void showCanvas(PointNode *pointNode) {
+    PointNode *current = pointNode;
+    while (current != NULL) {
+        printf("TEST: x: %d, y: %d val: %d\n", current->p.x, current->p.y,
+               current->p.val);
+        current = current->next;
+    }
+}
 
 #ifdef DEBUG
 int main() {
