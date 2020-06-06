@@ -25,8 +25,6 @@ void gotoxy(int x, int y);
 void print_surface();
 void setColor(int color);
 void initGamePrinter();
-void print_tetris_block(TetrisBlock tetrisBlock, int x, int y);
-void erase_tetris_block(TetrisBlock tetrisBlock, int x, int y);
 void initGameFrame();
 
 #endif

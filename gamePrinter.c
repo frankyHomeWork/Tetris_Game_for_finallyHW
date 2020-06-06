@@ -111,31 +111,6 @@ void set_tetris_block(TetrisPoints tetrisPoints) {
         setCanvas(current->p);
         current = current->next;
     }
-    
-    
-}
-
-
-void print_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
-    int w, h;
-    for (w = 0; w < FR_TETRIS_W; w++) {
-        for (h = 0; h < FR_TETRIS_H; h++) {
-            if (tetrisBlock.block[h][w] == 1) {
-                printxy("O", x + w, y + h);
-            }
-        }
-    }
-}
-
-void erase_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
-    int w, h;
-    for (w = 0; w < FR_TETRIS_W; w++) {
-        for (h = 0; h < FR_TETRIS_H; h++) {
-            if (tetrisBlock.block[h][w] == 1) {
-                printxy(" ", x + w, y + h);
-            }
-        }
-    }
 }
 
 void initHand() {
