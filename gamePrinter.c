@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <windows.h>
 
+typedef struct {
+    int height;
+    int width;
+    PointNode *canvas;
+} GameSurface;
+
 void initGameSurface();
 void showGameSurface();
 
@@ -52,9 +58,9 @@ void showGameSurface() {
     while (current != NULL) {
         if (current->p.val == 1) {
             printxy("O", current->p.x, current->p.y);
-        } else if (current->p.val == 2) {
+        } else if (current->p.val == 2) { // for right left
             printxy("|", current->p.x, current->p.y);
-        } else if (current->p.val == 3) {
+        } else if (current->p.val == 3) { // for floor
             printxy("-", current->p.x, current->p.y);
         } else {
             printxy(" ", current->p.x, current->p.y);
@@ -141,10 +147,10 @@ bool isSurfacehasFill(Point point) {
 }
 
 bool isOverBoundary(Point point) {
-    if (point.x < 0 || point.x > FR_WIDTH - 1) {
+    if (point.x <= 0 || point.x >= FR_WIDTH - 1) {
         return true;
     }
-    if (point.y < 0 || point.y > FR_HEIGHT - 1) {
+    if (point.y <= 0 || point.y >= FR_HEIGHT - 1) {
         return true;
     }
     return false;
@@ -245,7 +251,7 @@ int main() {
     TetrisPoints pre_T;
 
     bool firstTime = true;
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 50; i++) {
         T1 = shiftTetrisPoints(T1, 0, 1);
         if (check_can_add_block(T1)) {
             if (firstTime) {

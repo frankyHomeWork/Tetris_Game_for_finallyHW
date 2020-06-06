@@ -10,22 +10,11 @@
 #include <stdbool.h>
 #include "Point.h"
 
+void initGameSurface();
+void showGameSurface();
+bool check_can_add_block(TetrisPoints tetrisPoints);
+void set_tetris_block(TetrisPoints tetrisPoints);
 
-
-typedef struct {
-    int height;
-    int width;
-    PointNode *canvas;
-} GameSurface;
-
-
-void setCursorVisable(int v);
-void printxy(char *str, int x, int y);
-void gotoxy(int x, int y);
-void print_surface();
-void setColor(int color);
-void initGamePrinter();
-void initGameFrame();
 
 #endif
 
