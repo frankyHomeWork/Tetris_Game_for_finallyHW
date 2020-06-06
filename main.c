@@ -10,13 +10,12 @@
 int main() {
     initGameSurface();
     showGameSurface();
-    Sleep(1000);
     TetrisPoints T1 = getTetrisPoints1();
     TetrisPoints pre_T;
 
     bool firstTime = true;
-    for (int i = 0; i < 50; i++) {
-        T1 = shiftTetrisPoints(T1, 0, 0);
+    while(1) {
+        T1 = shiftTetrisPoints(T1, 0, 1);
         T1 = control_Block0(T1);
         if (check_can_add_block(T1)) {
             if (firstTime) {
@@ -31,8 +30,11 @@ int main() {
             showGameSurface();
             Sleep(1000);
             pre_T = T1;
+        } else {// 需要判斷是到底還是到左右邊界
+            break;
         }
     }
+    system("pause");
 
     return 0;
 }
