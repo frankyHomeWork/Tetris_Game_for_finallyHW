@@ -4,10 +4,11 @@
 #include <windows.h>
 #include <stdlib.h>
 
-Point createPoint(int x, int y, int val);
+
 PointNode* createCanvas(int height, int width);
 GameSurface createGameSurface(int height, int width);
 void initHand();
+void showCanvas(PointNode* pointNode);
 
 HANDLE hand;
 GameSurface gameSurface;
@@ -41,7 +42,7 @@ GameSurface createGameSurface(int height, int width) {
     GameSurface gameSurface;
     
     gameSurface.height = height;
-    gameSurface.height = width;
+    gameSurface.width = width;
     gameSurface.canvas = createCanvas(height, width);
     
     return gameSurface;
@@ -76,19 +77,11 @@ PointNode* createCanvas(int height, int width) {
     return firstPointNode;
 }
 
-Point createPoint(int x, int y, int val) {
-    Point p;
-    
-    p.x = x;
-    p.y = y;
-    p.val = val;
-    return p;
-}
 
 void showCanvas(PointNode* pointNode) {
     PointNode *current = pointNode;
     while(current != NULL) {
-        printf("TEST: x: %d, y: %d\n", current->p.x, current->p.y);
+        printf("TEST: x: %d, y: %d val: %d\n", current->p.x, current->p.y, current->p.val);
         current = current->next;
     }
 }
@@ -104,13 +97,23 @@ void setCanvas(Point point) {
     while(current != NULL) {
         if(current->p.x == point.x && current->p.y == point.y && current->p.val != point.val) {
             current->p.val = point.val;
-            break;
+            return;
         }
         current = current->next;
     }
     
 }
 
+void set_tetris_block(TetrisPoints tetrisPoints) {
+    PointNode *current = tetrisPoints.blocks;
+    
+    for(int i = 0 ; i < tetrisPoints.size ; i++) {
+        setCanvas(current->p);
+        current = current->next;
+    }
+    
+    
+}
 
 
 void print_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
@@ -164,11 +167,14 @@ void setColor(int color) { SetConsoleTextAttribute(hand, color); }
 int main() {
     initGameSurface();
     showGameSurface();
-    Point point = createPoint(5,10,1);
-    setCanvas(point);
-    point = createPoint(15,10,1);
-    setCanvas(point);
+    Sleep(1000);
+    
+    set_tetris_block(getTetrisPoints1());
     showGameSurface();
+    
+    
+    
+    system("pause");
     
     return 0;
 }

@@ -8,27 +8,15 @@
 
 #include "tetris.h"
 #include <stdbool.h>
+#include "Point.h"
 
 
-typedef struct {
-    int x;
-    int y;
-    int val;
-} Point;
-
-typedef struct pointNode {
-    Point p;
-    struct pointNode *next;
-} PointNode;
 
 typedef struct {
     int height;
     int width;
     PointNode *canvas;
 } GameSurface;
-
-
-
 
 
 void setCursorVisable(int v);
@@ -40,10 +28,6 @@ void initGamePrinter();
 void print_tetris_block(TetrisBlock tetrisBlock, int x, int y);
 void erase_tetris_block(TetrisBlock tetrisBlock, int x, int y);
 void initGameFrame();
-
-void setGameSurfaceToFill(int x, int y);
-void setGameSurfaceToEmpty(int x, int y);
-bool checkGameSurfaceIsFill(int x, int y);
 
 #endif
 
