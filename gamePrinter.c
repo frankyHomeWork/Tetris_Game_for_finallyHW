@@ -22,7 +22,7 @@ bool isSurfacehasFill(Point point);
 bool isOverBoundary(Point point);
 bool check_can_add_block(TetrisPoints tetrisPoints);
 
-void setCanvas(Point point);
+void setCanvas(Point point, PointNode *pointNode);
 void set_tetris_block(TetrisPoints tetrisPoints);
 
 
@@ -177,13 +177,13 @@ bool check_can_add_block(TetrisPoints tetrisPoints) {
     return true;
 }
 
-void setCanvas(Point point) {
+void setCanvas(Point point, PointNode *pointNode) {
     if (!isGameSurfaceInit) {
         printf("isGameSurfaceInit is false\n");
         return;
     }
 
-    PointNode *current = gameSurface.canvas;
+    PointNode *current = pointNode;
     while (current != NULL) {
         if (current->p.x == point.x && current->p.y == point.y) {
             if (current->p.val != point.val) {
@@ -204,10 +204,25 @@ void set_tetris_block(TetrisPoints tetrisPoints) {
         int val = current->p.val;
 
         Point point = createPoint(x, y, val);
-        setCanvas(point);
+        setCanvas(point, gameSurface.canvas);
         current = current->next;
     }
 }
+
+void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints) {
+    PointNode *current = tetrisPoints.blocks;
+
+    for (int i = 0; i < tetrisPoints.size; i++) {
+        int x = current->p.x + tetrisPoints.x;
+        int y = current->p.y + tetrisPoints.y;
+        int val = current->p.val;
+
+        Point point = createPoint(x, y, val);
+        setCanvas(point, fixGameSurface.canvas);
+        current = current->next;
+    }
+}
+
 
 void initHand() {
     hand = GetStdHandle(STD_OUTPUT_HANDLE);

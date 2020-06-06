@@ -30,9 +30,13 @@ int main() {
             showGameSurface();
             Sleep(1000);
             pre_T = T1;
-        } else {// 需要判斷是到底還是到左右邊界
-            break;
         }
+        
+        
+        
+        // } else {// 需要判斷是到底還是到左右邊界
+        //     break;
+        // }
     }
     system("pause");
 
