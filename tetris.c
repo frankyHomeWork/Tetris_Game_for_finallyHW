@@ -2,44 +2,30 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-TetrisBlock getBlock1() {
+TetrisPoints getTetrisPoints1();
+TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]);
+TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y);
+
+
+TetrisPoints getTetrisPoints1() {
     int block[FR_TETRIS_H][FR_TETRIS_W] = {
         {0, 0, 0, 0}, 
         {0, 1, 0, 0}, 
         {0, 1, 0, 0}, 
         {1, 1, 1, 0}};
 
-    return copyBlock(block);
-
-}
-
-TetrisBlock copyBlock(int block[FR_TETRIS_W][FR_TETRIS_H]) {
-    TetrisBlock tetrisBlock;
-    int i;
-    for (i = 0; i < FR_TETRIS_W; i++) {
-        int j;
-        for (j = 0; j < FR_TETRIS_H; j++) {
-            tetrisBlock.block[i][j] = block[i][j];
-        }
-    }
-    return tetrisBlock;
-}
-
-TetrisPoints getTetrisPoints1(){
-    int block[FR_TETRIS_H][FR_TETRIS_W] = {
-        {0, 0, 0, 0}, 
-        {0, 1, 0, 0}, 
-        {0, 1, 0, 0}, 
-        {1, 1, 1, 0}};
-
-    return copy2TetrisPoints(block);
+    TetrisPoints tetrisPoints = copy2TetrisPoints(block);
+    return shiftTetrisPoints(tetrisPoints, 8, -1);
 }
 
 
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]) {
     TetrisPoints tetrisPoints;
-    tetrisPoints.size = 0;
+    
     tetrisPoints.blocks = NULL;
+    tetrisPoints.size = 0;
+    tetrisPoints.x = 0;
+    tetrisPoints.y = 0;
     
     PointNode *firstPointNode = NULL;
     PointNode *preNode = NULL;
@@ -69,4 +55,23 @@ TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]) {
     tetrisPoints.blocks = firstPointNode;
     
     return tetrisPoints;
+}
+
+
+
+TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y) {
+    tetrisPoints.x += x; 
+    tetrisPoints.y += y; 
+    return tetrisPoints;     
+}
+
+TetrisPoints set_val_to_TetrisPoints(TetrisPoints tetrisPoints, int val) {
+    
+    PointNode *current = tetrisPoints.blocks;
+    while(current != NULL) {
+        current->p.val = val;
+        current = current->next;
+    }
+    
+    return tetrisPoints;     
 }
