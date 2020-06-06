@@ -1,7 +1,8 @@
 #ifndef _USER_CONTROL_H
 #define _USER_CONTROL_H
 #include "gamePrinter.h"
+#include "tetris.h"
 
-void control_Block0();
+TetrisPoints control_Block0(TetrisPoints tetrisPoints);
 
 #endif

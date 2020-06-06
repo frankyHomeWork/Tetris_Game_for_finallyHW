@@ -16,7 +16,8 @@ int main() {
 
     bool firstTime = true;
     for (int i = 0; i < 50; i++) {
-        T1 = shiftTetrisPoints(T1, 0, 1);
+        T1 = shiftTetrisPoints(T1, 0, 0);
+        T1 = control_Block0(T1);
         if (check_can_add_block(T1)) {
             if (firstTime) {
                 firstTime = false;
