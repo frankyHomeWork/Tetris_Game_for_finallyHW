@@ -2,42 +2,116 @@
 
 #include <stdio.h>
 #include <windows.h>
+#include <stdlib.h>
+
+Point createPoint(int x, int y, int val);
+PointNode* createCanvas(int height, int width);
+GameSurface createGameSurface(int height, int width);
+void initHand();
 
 HANDLE hand;
+GameSurface gameSurface;
+bool isGameSurfaceInit = false;
 
-int game_surface[FR_HEIGHT][FR_WIDTH] = {
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-
-
-
-void initGamePrinter() {
-    hand = GetStdHandle(STD_OUTPUT_HANDLE);
-    setCursorVisable(1);
+void initGameSurface() {
+    initHand();
+    gameSurface = createGameSurface(14, 18);
+    isGameSurfaceInit = true;
 }
 
-void print_block(int block[][FR_BOLCK_W], int x, int y) {
-    int w, h;
-    for (w = 0; w < FR_BOLCK_W; w++) {
-        for (h = 0; h < FR_BOLCK_H; h++) {
-            if (block[h][w] == 1) {
-                printxy("O", x + w, y + h);
-            }
+void showGameSurface() {
+    if(!isGameSurfaceInit) {
+        printf("isGameSurfaceInit is false\n");
+        return;
+    }
+    
+    PointNode *current = gameSurface.canvas;
+    while(current != NULL) {
+        if(current->p.val == 1) {
+            printxy("O", current->p.x, current->p.y);
+        } else {
+            printxy(" ", current->p.x, current->p.y);
         }
+        
+        current = current->next;
     }
 }
+
+GameSurface createGameSurface(int height, int width) {
+    GameSurface gameSurface;
+    
+    gameSurface.height = height;
+    gameSurface.height = width;
+    gameSurface.canvas = createCanvas(height, width);
+    
+    return gameSurface;
+}
+
+
+
+PointNode* createCanvas(int height, int width) {
+    
+    PointNode *firstPointNode = NULL;
+    PointNode *preNode = NULL;
+    
+    bool firstTime = true;
+    
+    for(int x = 0 ; x < width ; x++ ) {
+        for(int y = 0 ; y < height ; y++ ) {
+            PointNode *pointNode_tmp = (PointNode*)malloc(sizeof(PointNode));
+            
+            Point point = createPoint(x, y , 0);
+            pointNode_tmp->p = point;
+            pointNode_tmp->next = NULL;
+            
+            if(firstTime) {
+                firstPointNode = pointNode_tmp;
+                firstTime = false;
+            } else {
+                preNode->next = pointNode_tmp;
+            }
+            preNode = pointNode_tmp;
+        }
+    }
+    return firstPointNode;
+}
+
+Point createPoint(int x, int y, int val) {
+    Point p;
+    
+    p.x = x;
+    p.y = y;
+    p.val = val;
+    return p;
+}
+
+void showCanvas(PointNode* pointNode) {
+    PointNode *current = pointNode;
+    while(current != NULL) {
+        printf("TEST: x: %d, y: %d\n", current->p.x, current->p.y);
+        current = current->next;
+    }
+}
+
+void setCanvas(Point point) {
+    
+    if(!isGameSurfaceInit) {
+        printf("isGameSurfaceInit is false\n");
+        return;
+    }
+    
+    PointNode *current = gameSurface.canvas;
+    while(current != NULL) {
+        if(current->p.x == point.x && current->p.y == point.y && current->p.val != point.val) {
+            current->p.val = point.val;
+            break;
+        }
+        current = current->next;
+    }
+    
+}
+
+
 
 void print_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
     int w, h;
@@ -61,16 +135,9 @@ void erase_tetris_block(TetrisBlock tetrisBlock, int x, int y) {
     }
 }
 
-
-void erase_block(int block[][FR_BOLCK_W], int x, int y) {
-    int w, h;
-    for (w = 0; w < FR_BOLCK_W; w++) {
-        for (h = 0; h < FR_BOLCK_H; h++) {
-            if (block[h][w] == 1) {
-                printxy(" ", x + w, y + h);
-            }
-        }
-    }
+void initHand() {
+    hand = GetStdHandle(STD_OUTPUT_HANDLE);
+    setCursorVisable(1);
 }
 
 void setCursorVisable(int v) {
@@ -90,57 +157,22 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(hand, loc);
 }
 
-void print_surface(int surface[][FR_WIDTH]) {
-    int x, y;
-    for (x = 0; x < FR_WIDTH; x++) {
-        for (y = 0; y < FR_HEIGHT; y++) {
-            int row = y;
-            int col = x;
-            if (surface[row][col] == 0) {
-                printxy(" ", x, y);
-            } else {
-                printxy("1", x, y);
-            }
-        }
-    }
-}
-
-void initGameFrame() {
-    print_surface(game_surface);
-}
-
 void setColor(int color) { SetConsoleTextAttribute(hand, color); }
 
-void setGameSurfaceToFill(int x, int y) {
-    if(y < FR_HEIGHT && y >= 0) {
-        if(x < FR_WIDTH && x >= 0) {
-            game_surface[y][x] = 1 ;
-        }
-    }
 
+#ifdef DEBUG
+int main() {
+    initGameSurface();
+    showGameSurface();
+    Point point = createPoint(5,10,1);
+    setCanvas(point);
+    point = createPoint(15,10,1);
+    setCanvas(point);
+    showGameSurface();
+    
+    return 0;
 }
-
-void setGameSurfaceToEmpty(int x, int y) {
-    if(y < FR_HEIGHT && y >= 0) {
-        if(x < FR_WIDTH && x >= 0) {
-            game_surface[y][x] = 0 ;
-        }
-    }
-}
-
-
-bool checkGameSurfaceIsFill(int x, int y) {
-
-    if(game_surface[y][x] == 1) {
-        return true;
-    } else {
-        return false;
-    }
-
-
-}
-
-
+#endif
 
 
 
