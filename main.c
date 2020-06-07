@@ -13,8 +13,15 @@ int main() {
     TetrisPoints T1 = getTetrisPoints1();
     add_new_block(T1);
     while(1){
-        shiftAndShow(0, 1);
-        
+        if(isAddingBlock()) {
+            
+            control_Block0();
+            
+            shiftAndShow(0, 1);
+        } else{
+            T1 = getTetrisPoints1();
+            add_new_block(T1);
+        }
     }
 
     system("pause");

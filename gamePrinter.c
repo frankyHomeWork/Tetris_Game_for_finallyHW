@@ -19,8 +19,10 @@ PointNode *createCanvas(int height, int width);
 
 
 bool isSurfacehasFill(Point point);
+bool isTouchStickSurfacehas(Point point);
 bool isOverBoundary(Point point);
 bool check_can_add_block(TetrisPoints tetrisPoints);
+bool check_is_need_stop(TetrisPoints tetrisPoints);
 
 void setCanvas(Point point, PointNode *pointNode);
 void set_tetris_block(TetrisPoints tetrisPoints);
@@ -146,11 +148,30 @@ bool isSurfacehasFill(Point point) {
     }
 }
 
+bool isTouchStickSurfacehas(Point point) {
+    if (!isGameSurfaceInit) {
+        printf("isGameSurfaceInit is false\n");
+        return false;
+    }
+
+    PointNode *current = fixGameSurface.canvas;
+    while (current != NULL) {
+        if (current->p.x == point.x && current->p.y == point.y) {
+            if (current->p.val == 1 || current->p.val == 3) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        current = current->next;
+    }
+}
+
 bool isOverBoundary(Point point) {
     if (point.x <= 0 || point.x >= FR_WIDTH - 1) {
         return true;
     }
-    if (point.y <= 0 || point.y >= FR_HEIGHT - 1) {
+    if (point.y >= FR_HEIGHT - 1) {
         return true;
     }
     return false;
@@ -175,6 +196,26 @@ bool check_can_add_block(TetrisPoints tetrisPoints) {
         current = current->next;
     }
     return true;
+}
+
+bool check_is_need_stop(TetrisPoints tetrisPoints) {
+    PointNode *current = tetrisPoints.blocks;
+
+    for (int i = 0; i < tetrisPoints.size; i++) {
+        int x = current->p.x + tetrisPoints.x;
+        int y = current->p.y + tetrisPoints.y;
+        int val = current->p.val;
+
+        Point point = createPoint(x, y, val);
+        bool is_Sticked = isTouchStickSurfacehas(point);
+
+        if (is_Sticked) {
+            return true;
+        }
+
+        current = current->next;
+    }
+    return false;
 }
 
 void setCanvas(Point point, PointNode *pointNode) {

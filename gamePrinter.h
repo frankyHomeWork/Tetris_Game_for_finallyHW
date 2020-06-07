@@ -12,7 +12,8 @@ void initGameSurface();
 void showGameSurface();
 bool check_can_add_block(TetrisPoints tetrisPoints);
 void set_tetris_block(TetrisPoints tetrisPoints);
-
+void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints);
+bool check_is_need_stop(TetrisPoints tetrisPoints);
 
 #endif
 

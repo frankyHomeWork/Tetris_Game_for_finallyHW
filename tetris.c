@@ -15,7 +15,7 @@ TetrisPoints getTetrisPoints1() {
         {1, 1, 1, 0}};
 
     TetrisPoints tetrisPoints = copy2TetrisPoints(block);
-    return shiftTetrisPoints(tetrisPoints, 8, -1);
+    return shiftTetrisPoints(tetrisPoints, 8, -4);
 }
 
 
