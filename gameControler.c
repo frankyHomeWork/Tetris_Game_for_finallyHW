@@ -57,11 +57,12 @@ void shiftBlock(int x, int y) {
             set_tetris_block(adding_block);
             set_tetris_blockToFixSurface(adding_block);
             is_adding = false; // until add new block, then it will true
+            has_pre_block = false; 
         } else {
             adding_block = shiftTetrisPoints(adding_block, -x, -y);
             set_tetris_block(adding_block);
         }
-        has_pre_block = false; 
+        
     }
     
     
