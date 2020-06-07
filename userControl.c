@@ -1,47 +1,39 @@
 #include "userControl.h"
 
 #include <conio.h>
-#include <stdio.h>
+#include <time.h>
 
-
-// int Block0[FR_BOLCK_H][FR_BOLCK_W] = {
-//     {0, 0, 0, 0}, 
-//     {0, 1, 1, 0}, 
-//     {0, 1, 1, 0}, 
-//     {0, 0, 0, 0}};
-
-// void control_Block0() {
-//     int ch;
-//     int cur_x = 0;
-//     int cur_y = 0;
-//     while (1) {
-//         if (kbhit() != 0) {
-//             ch = getch();
-//             switch (ch) {
-//                 case 72:  // up
-//                     erase_block(Block0, cur_x, cur_y);
-//                     cur_y--;
-//                     print_block(Block0, cur_x, cur_y);
-//                     break;
-//                 case 80:  // down
-//                     erase_block(Block0, cur_x, cur_y);
-//                     cur_y++;
-//                     print_block(Block0, cur_x, cur_y);
-//                     break;
-//                 case 75:  // left
-//                     erase_block(Block0, cur_x, cur_y);
-//                     cur_x--;
-//                     print_block(Block0, cur_x, cur_y);
-//                     break;
-//                 case 77:  // right
-//                     erase_block(Block0, cur_x, cur_y);
-//                     cur_x++;
-//                     print_block(Block0, cur_x, cur_y);
-//                     break;
-//                 case 113:  // q
-//                     return;
-//                     break;
-//             }
-//         }
-//     }
-// }
+void control_Block0() {
+    
+    time_t start_t, end_t;
+    double diff_t;
+    time(&start_t);
+    
+    int ch;
+    while (1) {
+        if (kbhit() != 0) {
+            ch = getch();
+            switch (ch) {
+                case 80:  // down
+                    shiftAndShow(0, 1);
+                    return;
+                    break;
+                case 75:  // left
+                    shiftAndShow(-1, 0);
+                    return;
+                    break;
+                case 77:  // right
+                    shiftAndShow(1, 0);
+                    return;
+                    break;
+            }
+        }
+        
+        time(&end_t);
+        diff_t = difftime(end_t, start_t);
+        if(diff_t >= 0.1) {
+            break;
+        }
+        
+    }
+}

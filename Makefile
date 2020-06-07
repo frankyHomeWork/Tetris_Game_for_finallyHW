@@ -11,7 +11,7 @@ Point.o: Point.h Point.c
 gamePrinter.o: gamePrinter.h gamePrinter.c tetris.h Point.h
 	gcc -c gamePrinter.c
 
-userControl.o: userControl.h userControl.c gamePrinter.h
+userControl.o: userControl.h userControl.c gameControler.h
 	gcc -c userControl.c
 
 gameControler.o: gameControler.h gameControler.c tetris.h gamePrinter.h

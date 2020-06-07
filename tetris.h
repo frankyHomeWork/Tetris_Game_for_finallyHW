@@ -6,9 +6,6 @@
 
 #include "Point.h"
 
-typedef struct {
-    int block[FR_TETRIS_W][FR_TETRIS_H];
-} TetrisBlock;
 
 typedef struct {
     PointNode *blocks;
