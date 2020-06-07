@@ -3,8 +3,6 @@
 
 #define FR_HEIGHT 14
 #define FR_WIDTH 18
-#define FR_BOLCK_H 4
-#define FR_BOLCK_W 4
 
 #include "tetris.h"
 #include <stdbool.h>

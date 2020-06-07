@@ -3,6 +3,7 @@
 #include "tetris.h"
 #include "gamePrinter.h"
 
-void letBlockDown();
+void shiftAndShow(int x, int y);
+void add_new_block(TetrisPoints tetrisPoints);
 
 #endif
