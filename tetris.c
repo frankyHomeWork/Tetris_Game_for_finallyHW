@@ -19,6 +19,19 @@ TetrisPoints getTetrisPoints1() {
 }
 
 
+TetrisPoints getTetrisPoints2() {
+    int block[FR_TETRIS_H][FR_TETRIS_W] = {
+        {0, 0, 0, 0}, 
+        {0, 0, 0, 0}, 
+        {0, 1, 1, 0}, 
+        {0, 1, 1, 0}};
+
+    TetrisPoints tetrisPoints = copy2TetrisPoints(block);
+    return shiftTetrisPoints(tetrisPoints, 8, -4);
+}
+
+
+
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]) {
     TetrisPoints tetrisPoints;
     

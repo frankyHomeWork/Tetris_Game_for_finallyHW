@@ -9,4 +9,6 @@ void add_new_block(TetrisPoints tetrisPoints);
 bool isAddingBlock();
 TetrisPoints get_adding_block();
 void set_adding_block(TetrisPoints tetrisPoints);
+void deleteLinkLine();
+
 #endif

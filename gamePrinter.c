@@ -23,6 +23,11 @@ bool isTouchStickSurfacehas(Point point);
 bool isOverBoundary(Point point);
 bool check_can_add_block(TetrisPoints tetrisPoints);
 bool check_is_need_stop(TetrisPoints tetrisPoints);
+bool check_is_LinkLine(int row);
+
+void deleteLine(GameSurface gameSurface, int row);
+
+
 
 void setCanvas(Point point, PointNode *pointNode);
 void set_tetris_block(TetrisPoints tetrisPoints);
@@ -216,6 +221,50 @@ bool check_is_need_stop(TetrisPoints tetrisPoints) {
         current = current->next;
     }
     return false;
+}
+
+bool check_is_LinkLine(int row) {
+    
+    int count = 0;
+    PointNode *current = fixGameSurface.canvas;
+    while(current != NULL) {
+        
+        if(current->p.x > 0 && current->p.x < 17) {
+            if( current->p.y == row ){
+                if(current->p.val == 1) {
+                    count++;
+                } else {
+                    return false;
+                }
+            }
+        }
+        current = current->next;
+    }
+    if(count == FR_WIDTH - 2) {
+        return true;
+    } else {
+        return false;
+    }
+    
+}
+
+void deleteSurfaceLine(int row) {
+    deleteLine(gameSurface, row);
+    deleteLine(fixGameSurface, row);
+}
+
+void deleteLine(GameSurface gameSurface, int row) {
+    
+    PointNode *current = gameSurface.canvas;
+    while(current != NULL) {
+        
+        if(current->p.x > 0 && current->p.x < 17) {
+            if( current->p.y == row ){
+               current->p.val = 0;
+            }
+        }
+        current = current->next;
+    }
 }
 
 void setCanvas(Point point, PointNode *pointNode) {

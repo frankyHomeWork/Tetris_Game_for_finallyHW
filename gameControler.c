@@ -35,6 +35,14 @@ void shiftAndShow(int x, int y) {
 }
 
 
+void deleteLinkLine() {
+    
+    
+    
+    
+}
+
+
 void shiftBlock(int x, int y) {
     
     if(is_adding == false) {

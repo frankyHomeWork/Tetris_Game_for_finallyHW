@@ -10,7 +10,7 @@
 int main() {
     initGameSurface();
     showGameSurface();
-    TetrisPoints T1 = getTetrisPoints1();
+    TetrisPoints T1 = getTetrisPoints2();
     add_new_block(T1);
     while(1){
         if(isAddingBlock()) {
@@ -18,8 +18,11 @@ int main() {
             control_Block0();
             
             shiftAndShow(0, 1);
+            if(check_is_LinkLine(12)) {
+                deleteSurfaceLine(12);
+            }
         } else{
-            T1 = getTetrisPoints1();
+            T1 = getTetrisPoints2();
             add_new_block(T1);
         }
     }

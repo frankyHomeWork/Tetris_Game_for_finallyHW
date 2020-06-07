@@ -15,6 +15,8 @@ typedef struct {
 } TetrisPoints;
 
 TetrisPoints getTetrisPoints1();
+TetrisPoints getTetrisPoints2();
+
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]);
 TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y);
 TetrisPoints set_val_to_TetrisPoints(TetrisPoints tetrisPoints, int val);
