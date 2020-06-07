@@ -18,9 +18,7 @@ int main() {
             control_Block0();
             
             shiftAndShow(0, 1);
-            if(check_is_LinkLine(12)) {
-                deleteSurfaceLine(12);
-            }
+            deleteLinkLine();
         } else{
             T1 = getTetrisPoints2();
             add_new_block(T1);

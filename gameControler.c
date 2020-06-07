@@ -37,8 +37,12 @@ void shiftAndShow(int x, int y) {
 
 void deleteLinkLine() {
     
-    
-    
+    for(int i = 0 ; i <= 12 ; i++) {
+        if(check_is_LinkLine(i)) {
+            deleteSurfaceLine(i);
+            shiftDownSurfaceLine(i);
+        }    
+    }
     
 }
 

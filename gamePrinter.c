@@ -26,8 +26,8 @@ bool check_is_need_stop(TetrisPoints tetrisPoints);
 bool check_is_LinkLine(int row);
 
 void deleteLine(GameSurface gameSurface, int row);
-
-
+void shiftDownSurfaceLine(int row);
+void shiftDown(GameSurface gameSurface, int row);
 
 void setCanvas(Point point, PointNode *pointNode);
 void set_tetris_block(TetrisPoints tetrisPoints);
@@ -266,6 +266,33 @@ void deleteLine(GameSurface gameSurface, int row) {
         current = current->next;
     }
 }
+
+
+void shiftDownSurfaceLine(int row) {
+    shiftDown(gameSurface, row);
+    shiftDown(fixGameSurface, row);
+}
+
+
+void shiftDown(GameSurface gameSurface, int row) { // delete the row and shift down the uper row
+    
+    PointNode *current = gameSurface.canvas;
+    while(current != NULL) {
+        
+        if(current->p.x > 0 && current->p.x < 17) {
+            if( current->p.y < row ){
+               current->p.y++;
+            } else if(current->p.y == row) {
+                current->p.val = 0;
+                current->p.y = 0;
+            }
+        }
+        current = current->next;
+    }
+}
+
+
+
 
 void setCanvas(Point point, PointNode *pointNode) {
     if (!isGameSurfaceInit) {

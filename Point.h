@@ -13,4 +13,5 @@ typedef struct pointNode {
 } PointNode;
 
 Point createPoint(int x, int y, int val);
+void setPointNodeVal(PointNode *pointNode, int x, int y, int val);
 #endif
