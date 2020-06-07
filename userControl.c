@@ -31,7 +31,7 @@ void control_Block0() {
         
         time(&end_t);
         diff_t = difftime(end_t, start_t);
-        if(diff_t >= 0.1) {
+        if(diff_t >= 0.01) {
             break;
         }
         

@@ -28,12 +28,10 @@ void deletePreBlock() {
 
 
 void shiftAndShow(int x, int y) {
-    
     deletePreBlock();
-    showGameSurface();
     shiftBlock(x, y);
     showGameSurface();
-    Sleep(500);
+    Sleep(100);
 }
 
 
