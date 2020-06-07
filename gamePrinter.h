@@ -14,6 +14,8 @@ bool check_can_add_block(TetrisPoints tetrisPoints);
 void set_tetris_block(TetrisPoints tetrisPoints);
 void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints);
 bool check_is_need_stop(TetrisPoints tetrisPoints);
-
+bool check_is_LinkLine(int row);
+void deleteSurfaceLine(int row);
+void shiftDownSurfaceLine(int row);
 #endif
 
