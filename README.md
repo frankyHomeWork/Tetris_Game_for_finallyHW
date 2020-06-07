@@ -1,5 +1,11 @@
 # 作業進度說明
 
+
+## 6/7
+完成刪除方塊跟初步雛形
+![image](./Project_progress/67進度.gif)
+
+
 ## 6/3
 完成落下方塊
 ![image](./Project_progress/63進度.gif)
