@@ -19,13 +19,7 @@ bool has_pre_block = false;
 TetrisPoints adding_block;
 bool is_adding = false;
 
-void deletePreBlock() {
-    if(has_pre_block) {
-        pre_block = set_val_to_TetrisPoints(pre_block, 0);
-        set_tetris_block(pre_block);
-    }
-}
-
+int gameScore = 0;
 
 void shiftAndShow(int x, int y) {
     deletePreBlock();
@@ -41,9 +35,10 @@ void deleteLinkLine() {
         if(check_is_LinkLine(i)) {
             deleteSurfaceLine(i);
             shiftDownSurfaceLine(i);
+            gameScore++;
         }    
     }
-    
+    showGameScore(gameScore);
 }
 
 
@@ -64,6 +59,7 @@ void shiftBlock(int x, int y) {
     } else {
         if(check_is_need_stop(adding_block)) { // stop updata block
             adding_block = shiftTetrisPoints(adding_block, -x, -y);
+            // printf("y: %d\n", adding_block.y);system("pause");
             set_tetris_block(adding_block);
             set_tetris_blockToFixSurface(adding_block);
             is_adding = false; // until add new block, then it will true
@@ -76,6 +72,13 @@ void shiftBlock(int x, int y) {
     }
     
     
+}
+
+void deletePreBlock() {
+    if(has_pre_block) {
+        pre_block = set_val_to_TetrisPoints(pre_block, 0);
+        set_tetris_block(pre_block);
+    }
 }
 
 bool isAddingBlock() {

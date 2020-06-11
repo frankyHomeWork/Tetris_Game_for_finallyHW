@@ -20,6 +20,9 @@ int main() {
             shiftAndShow(0, 1);
             deleteLinkLine();
         } else{
+            check_is_GameOver();
+            showCanvas(getFixGameSurface_PointNode());
+            system("pause");
             T1 = getTetrisPoints2();
             add_new_block(T1);
         }

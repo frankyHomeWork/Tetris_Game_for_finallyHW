@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <string.h>
 
 typedef struct {
     int height;
@@ -21,7 +22,9 @@ PointNode *createCanvas(int height, int width);
 bool isSurfacehasFill(Point point);
 bool isTouchStickSurfacehas(Point point);
 bool isOverBoundary(Point point);
+bool isTouchCeiling(Point point);
 bool check_can_add_block(TetrisPoints tetrisPoints);
+bool check_is_GameOver();
 bool check_is_need_stop(TetrisPoints tetrisPoints);
 bool check_is_LinkLine(int row);
 
@@ -31,7 +34,7 @@ void shiftDown(GameSurface gameSurface, int row);
 
 void setCanvas(Point point, PointNode *pointNode);
 void set_tetris_block(TetrisPoints tetrisPoints);
-
+PointNode* getFixGameSurface_PointNode();
 
 void initHand();
 void setCursorVisable(int v);
@@ -182,6 +185,13 @@ bool isOverBoundary(Point point) {
     return false;
 }
 
+bool isTouchCeiling(Point point) {
+    if (point.y < 0) {
+        return true;
+    }
+    return false;
+}
+
 bool check_can_add_block(TetrisPoints tetrisPoints) {
     PointNode *current = tetrisPoints.blocks;
 
@@ -202,6 +212,28 @@ bool check_can_add_block(TetrisPoints tetrisPoints) {
     }
     return true;
 }
+
+bool check_is_GameOver() {
+    PointNode *current = fixGameSurface.canvas;
+
+    while (current != NULL) {
+        int x = current->p.x;
+        int y = current->p.y;
+        int val = current->p.val;
+
+        Point point = createPoint(x, y, val);
+        bool is_TouchCeiling = isTouchCeiling(point);
+
+        if (is_TouchCeiling) {
+            printf("GameOver/n");
+            system("pause");
+            return true;
+        } 
+        current = current->next;
+    }
+    return false;
+}
+
 
 bool check_is_need_stop(TetrisPoints tetrisPoints) {
     PointNode *current = tetrisPoints.blocks;
@@ -326,6 +358,11 @@ void set_tetris_block(TetrisPoints tetrisPoints) {
     }
 }
 
+PointNode* getFixGameSurface_PointNode() {
+    return fixGameSurface.canvas;
+}
+
+
 void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints) {
     PointNode *current = tetrisPoints.blocks;
 
@@ -374,34 +411,21 @@ void showCanvas(PointNode *pointNode) {
     }
 }
 
+void showGameScore(int score) {
+    char score_str[10] = ""; 
+    _itoa(score, score_str, 10);
+    char score_txt[30];
+    strcpy(score_txt, "Score: ");
+    strcat(score_txt, score_str);
+    printxy(score_txt, 20, 10);
+}
+
+
 #ifdef DEBUG
 int main() {
     initGameSurface();
     showGameSurface();
-    Sleep(1000);
-    TetrisPoints T1 = getTetrisPoints1();
-    TetrisPoints pre_T;
-
-    bool firstTime = true;
-    for (int i = 0; i < 50; i++) {
-        T1 = shiftTetrisPoints(T1, 0, 1);
-        if (check_can_add_block(T1)) {
-            if (firstTime) {
-                firstTime = false;
-            } else {  // delete pre_T
-                pre_T = set_val_to_TetrisPoints(pre_T, 0);
-                set_tetris_block(pre_T);
-                showGameSurface();
-            }
-            T1 = set_val_to_TetrisPoints(T1, 1);
-            set_tetris_block(T1);
-            showGameSurface();
-            Sleep(1000);
-            pre_T = T1;
-        }
-    }
-
-    showGameSurface();
+    showGameScore(10);
 
     system("pause");
 
