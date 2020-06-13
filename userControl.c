@@ -4,11 +4,10 @@
 #include <time.h>
 
 void control_Block0() {
-    
     time_t start_t, end_t;
     double diff_t;
     time(&start_t);
-    
+
     int ch;
     while (1) {
         if (kbhit() != 0) {
@@ -28,12 +27,11 @@ void control_Block0() {
                     break;
             }
         }
-        
+
         time(&end_t);
         diff_t = difftime(end_t, start_t);
-        if(diff_t >= 0.01) {
+        if (diff_t >= 0.01) {
             break;
         }
-        
     }
 }

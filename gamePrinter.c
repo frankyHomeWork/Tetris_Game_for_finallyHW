@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include <string.h>
+#include <windows.h>
 
 typedef struct {
     int height;
@@ -17,7 +17,6 @@ void showGameSurface();
 GameSurface createGameSurface(int height, int width);
 void setBoundary(GameSurface gameSurface);
 PointNode *createCanvas(int height, int width);
-
 
 bool isSurfacehasFill(Point point);
 bool isTouchStickSurfacehas(Point point);
@@ -34,7 +33,7 @@ void shiftDown(GameSurface gameSurface, int row);
 
 void setCanvas(Point point, PointNode *pointNode);
 void set_tetris_block(TetrisPoints tetrisPoints);
-PointNode* getFixGameSurface_PointNode();
+PointNode *getFixGameSurface_PointNode();
 
 void initHand();
 void setCursorVisable(int v);
@@ -46,7 +45,7 @@ void showGameScore(int score);
 void showNextBlock(TetrisPoints tetrisPoints);
 void clearNextBlock(TetrisPoints tetrisPoints);
 
-void showCanvas(PointNode *pointNode);//for test
+void showCanvas(PointNode *pointNode);  // for test
 
 HANDLE hand;
 GameSurface gameSurface;
@@ -71,9 +70,9 @@ void showGameSurface() {
     while (current != NULL) {
         if (current->p.val == 1) {
             printxy("O", current->p.x, current->p.y);
-        } else if (current->p.val == 2) { // for right left
+        } else if (current->p.val == 2) {  // for right left
             printxy("|", current->p.x, current->p.y);
-        } else if (current->p.val == 3) { // for floor
+        } else if (current->p.val == 3) {  // for floor
             printxy("-", current->p.x, current->p.y);
         } else {
             printxy(" ", current->p.x, current->p.y);
@@ -108,8 +107,6 @@ void setBoundary(GameSurface gameSurface) {
     }
 }
 
-
-
 PointNode *createCanvas(int height, int width) {
     PointNode *firstPointNode = NULL;
     PointNode *preNode = NULL;
@@ -135,10 +132,6 @@ PointNode *createCanvas(int height, int width) {
     }
     return firstPointNode;
 }
-
-
-
-
 
 bool isSurfacehasFill(Point point) {
     if (!isGameSurfaceInit) {
@@ -231,12 +224,11 @@ bool check_is_GameOver() {
             printf("GameOver/n");
             system("pause");
             return true;
-        } 
+        }
         current = current->next;
     }
     return false;
 }
-
 
 bool check_is_need_stop(TetrisPoints tetrisPoints) {
     PointNode *current = tetrisPoints.blocks;
@@ -259,14 +251,12 @@ bool check_is_need_stop(TetrisPoints tetrisPoints) {
 }
 
 bool check_is_LinkLine(int row) {
-    
     int count = 0;
     PointNode *current = fixGameSurface.canvas;
-    while(current != NULL) {
-        
-        if(current->p.x > 0 && current->p.x < 17) {
-            if( current->p.y == row ){
-                if(current->p.val == 1) {
+    while (current != NULL) {
+        if (current->p.x > 0 && current->p.x < 17) {
+            if (current->p.y == row) {
+                if (current->p.val == 1) {
                     count++;
                 } else {
                     return false;
@@ -275,12 +265,11 @@ bool check_is_LinkLine(int row) {
         }
         current = current->next;
     }
-    if(count == FR_WIDTH - 2) {
+    if (count == FR_WIDTH - 2) {
         return true;
     } else {
         return false;
     }
-    
 }
 
 void deleteSurfaceLine(int row) {
@@ -289,35 +278,31 @@ void deleteSurfaceLine(int row) {
 }
 
 void deleteLine(GameSurface gameSurface, int row) {
-    
     PointNode *current = gameSurface.canvas;
-    while(current != NULL) {
-        
-        if(current->p.x > 0 && current->p.x < 17) {
-            if( current->p.y == row ){
-               current->p.val = 0;
+    while (current != NULL) {
+        if (current->p.x > 0 && current->p.x < 17) {
+            if (current->p.y == row) {
+                current->p.val = 0;
             }
         }
         current = current->next;
     }
 }
 
-
 void shiftDownSurfaceLine(int row) {
     shiftDown(gameSurface, row);
     shiftDown(fixGameSurface, row);
 }
 
+void shiftDown(GameSurface gameSurface,
+               int row) {  // delete the row and shift down the uper row
 
-void shiftDown(GameSurface gameSurface, int row) { // delete the row and shift down the uper row
-    
     PointNode *current = gameSurface.canvas;
-    while(current != NULL) {
-        
-        if(current->p.x > 0 && current->p.x < 17) {
-            if( current->p.y < row ){
-               current->p.y++;
-            } else if(current->p.y == row) {
+    while (current != NULL) {
+        if (current->p.x > 0 && current->p.x < 17) {
+            if (current->p.y < row) {
+                current->p.y++;
+            } else if (current->p.y == row) {
                 current->p.val = 0;
                 current->p.y = 0;
             }
@@ -325,9 +310,6 @@ void shiftDown(GameSurface gameSurface, int row) { // delete the row and shift d
         current = current->next;
     }
 }
-
-
-
 
 void setCanvas(Point point, PointNode *pointNode) {
     if (!isGameSurfaceInit) {
@@ -361,10 +343,7 @@ void set_tetris_block(TetrisPoints tetrisPoints) {
     }
 }
 
-PointNode* getFixGameSurface_PointNode() {
-    return fixGameSurface.canvas;
-}
-
+PointNode *getFixGameSurface_PointNode() { return fixGameSurface.canvas; }
 
 void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints) {
     PointNode *current = tetrisPoints.blocks;
@@ -379,7 +358,6 @@ void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints) {
         current = current->next;
     }
 }
-
 
 void initHand() {
     hand = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -415,7 +393,7 @@ void showCanvas(PointNode *pointNode) {
 }
 
 void showGameScore(int score) {
-    char score_str[10] = ""; 
+    char score_str[10] = "";
     _itoa(score, score_str, 10);
     char score_txt[30];
     strcpy(score_txt, "Score: ");
@@ -426,48 +404,42 @@ void showGameScore(int score) {
 void showNextBlock(TetrisPoints tetrisPoints) {
     printxy("..........", 19, 0);
     int left_row_i;
-    for(left_row_i = 0 ; left_row_i <= 5 ; left_row_i++) {
+    for (left_row_i = 0; left_row_i <= 5; left_row_i++) {
         printxy(".", 19, left_row_i);
     }
 
     int right_row_i;
-    for(right_row_i = 0 ; right_row_i <= 5 ; right_row_i++) {
+    for (right_row_i = 0; right_row_i <= 5; right_row_i++) {
         printxy(".", 28, right_row_i);
     }
     printxy("..........", 19, 5);
-    
-    
+
     PointNode *current = tetrisPoints.blocks;
-    
+
     int shift_x = 22;
     int shift_y = 1;
-    
+
     while (current != NULL) {
         if (current->p.val == 1) {
             printxy("O", current->p.x + shift_x, current->p.y + shift_y);
         }
         current = current->next;
     }
-    
 }
 
 void clearNextBlock(TetrisPoints tetrisPoints) {
- 
     PointNode *current = tetrisPoints.blocks;
-    
+
     int shift_x = 22;
     int shift_y = 1;
-    
+
     while (current != NULL) {
         if (current->p.val == 1) {
             printxy(" ", current->p.x + shift_x, current->p.y + shift_y);
         }
         current = current->next;
     }
-    
 }
-
-
 
 #ifdef DEBUG
 int main() {

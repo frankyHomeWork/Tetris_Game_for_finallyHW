@@ -15,10 +15,9 @@ typedef struct pointNode {
 Point createPoint(int x, int y, int val);
 void setPointNodeVal(PointNode *pointNode, int x, int y, int val);
 
-static const struct
-{
-    Point ( *createPoint)(int x, int y, int val);
-    void ( *setPointNodeVal)(PointNode *pointNode, int x, int y, int val);
+static const struct {
+    Point (*createPoint)(int x, int y, int val);
+    void (*setPointNodeVal)(PointNode *pointNode, int x, int y, int val);
 } Point_Module = {
     createPoint,
     setPointNodeVal,
