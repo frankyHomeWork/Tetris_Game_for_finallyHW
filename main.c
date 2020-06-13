@@ -9,8 +9,8 @@
 #include "tetris.h"
 
 int main() {
-    initGameSurface();
-    showGameSurface();
+    GamePrinter.initGameSurface();
+    GamePrinter.showGameSurface();
     
     TetrisPoints nextBlock = Trtris.tetrisRandomFactory();
     
@@ -18,19 +18,19 @@ int main() {
     while(1){
         if(first_time) {
             TetrisPoints first_block = Trtris.tetrisRandomFactory();
-            add_new_block(first_block);
+            GameControler.add_new_block(first_block);
             first_time = false;
         }
         
-        showNextBlock(nextBlock);
+        GamePrinter.showNextBlock(nextBlock);
         if(isAddingBlock()) {
-            control_Block0();
-            shiftAndShow(0, 1);
-            deleteLinkLine();
+            UserControl.control_Block0();
+            GameControler.shiftAndShow(0, 1);
+            GameControler.deleteLinkLine();
         } else{
-            clearNextBlock(nextBlock);
-            add_new_block(nextBlock);
-            nextBlock = tetrisRandomFactory();
+            GamePrinter.clearNextBlock(nextBlock);
+            GameControler.add_new_block(nextBlock);
+            nextBlock = Trtris.tetrisRandomFactory();
         }
     }
 
