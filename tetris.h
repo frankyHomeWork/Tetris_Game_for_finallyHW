@@ -16,13 +16,19 @@ typedef struct {
 
 TetrisPoints tetrisRandomFactory();
 
-TetrisPoints getTetrisPoints1();
-TetrisPoints getTetrisPoints2();
-TetrisPoints getTetrisPoints3();
-TetrisPoints getTetrisPoints4();
-TetrisPoints getTetrisPoints5();
-
-TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]);
 TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y);
 TetrisPoints set_val_to_TetrisPoints(TetrisPoints tetrisPoints, int val);
+
+static const struct
+{
+    TetrisPoints (* tetrisRandomFactory)();
+    TetrisPoints (* shiftTetrisPoints)(TetrisPoints tetrisPoints, int x, int y);
+    TetrisPoints (* set_val_to_TetrisPoints)(TetrisPoints tetrisPoints, int val);
+    
+} Trtris = {
+    tetrisRandomFactory,
+    shiftTetrisPoints,
+    set_val_to_TetrisPoints
+};
+
 #endif

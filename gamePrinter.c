@@ -120,7 +120,7 @@ PointNode *createCanvas(int height, int width) {
         for (int y = 0; y < height; y++) {
             PointNode *pointNode_tmp = (PointNode *)malloc(sizeof(PointNode));
 
-            Point point = createPoint(x, y, 0);
+            Point point = Point_Module.createPoint(x, y, 0);
             pointNode_tmp->p = point;
             pointNode_tmp->next = NULL;
 
@@ -203,7 +203,7 @@ bool check_can_add_block(TetrisPoints tetrisPoints) {
         int y = current->p.y + tetrisPoints.y;
         int val = current->p.val;
 
-        Point point = createPoint(x, y, val);
+        Point point = Point_Module.createPoint(x, y, val);
         bool is_fill = isSurfacehasFill(point);
         bool is_OverBoundary = isOverBoundary(point);
 
@@ -224,7 +224,7 @@ bool check_is_GameOver() {
         int y = current->p.y;
         int val = current->p.val;
 
-        Point point = createPoint(x, y, val);
+        Point point = Point_Module.createPoint(x, y, val);
         bool is_TouchCeiling = isTouchCeiling(point);
 
         if (is_TouchCeiling) {
@@ -246,7 +246,7 @@ bool check_is_need_stop(TetrisPoints tetrisPoints) {
         int y = current->p.y + tetrisPoints.y;
         int val = current->p.val;
 
-        Point point = createPoint(x, y, val);
+        Point point = Point_Module.createPoint(x, y, val);
         bool is_Sticked = isTouchStickSurfacehas(point);
 
         if (is_Sticked) {
@@ -355,7 +355,7 @@ void set_tetris_block(TetrisPoints tetrisPoints) {
         int y = current->p.y + tetrisPoints.y;
         int val = current->p.val;
 
-        Point point = createPoint(x, y, val);
+        Point point = Point_Module.createPoint(x, y, val);
         setCanvas(point, gameSurface.canvas);
         current = current->next;
     }
@@ -374,7 +374,7 @@ void set_tetris_blockToFixSurface(TetrisPoints tetrisPoints) {
         int y = current->p.y + tetrisPoints.y;
         int val = current->p.val;
 
-        Point point = createPoint(x, y, val);
+        Point point = Point_Module.createPoint(x, y, val);
         setCanvas(point, fixGameSurface.canvas);
         current = current->next;
     }

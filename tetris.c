@@ -3,9 +3,9 @@
 #include <stdbool.h>
 #include<time.h> 
 
-TetrisPoints getTetrisPoints1();
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]);
 TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y);
+TetrisPoints set_val_to_TetrisPoints(TetrisPoints tetrisPoints, int val);
 
 TetrisPoints tetrisRandomFactory();
 
@@ -118,7 +118,7 @@ TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]) {
     for (int h = 0; h < FR_TETRIS_H; h++) {
         for (int w = 0; w < FR_TETRIS_W ; w++) {
             if(block[h][w] == 1) {
-                Point p = createPoint(w, h, 1); 
+                Point p = Point_Module.createPoint(w, h, 1); 
                 
                 PointNode *pointNode_tmp = (PointNode*)malloc(sizeof(PointNode));
                 pointNode_tmp->p = p;

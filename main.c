@@ -12,12 +12,12 @@ int main() {
     initGameSurface();
     showGameSurface();
     
-    TetrisPoints nextBlock = tetrisRandomFactory();
+    TetrisPoints nextBlock = Trtris.tetrisRandomFactory();
     
     bool first_time = true;
     while(1){
         if(first_time) {
-            TetrisPoints first_block = tetrisRandomFactory();
+            TetrisPoints first_block = Trtris.tetrisRandomFactory();
             add_new_block(first_block);
             first_time = false;
         }

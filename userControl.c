@@ -15,15 +15,15 @@ void control_Block0() {
             ch = getch();
             switch (ch) {
                 case 80:  // down
-                    shiftAndShow(0, 1);
+                    GameControler.shiftAndShow(0, 1);
                     return;
                     break;
                 case 75:  // left
-                    shiftAndShow(-1, 0);
+                    GameControler.shiftAndShow(-1, 0);
                     return;
                     break;
                 case 77:  // right
-                    shiftAndShow(1, 0);
+                    GameControler.shiftAndShow(1, 0);
                     return;
                     break;
             }
