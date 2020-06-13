@@ -1,5 +1,7 @@
 # 作業進度說明
 
+[GitHub專案連結](https://github.com/frankyHomeWork/Tetris_Game_for_finallyHW)
+
 ## 6/13
 完成刪除方塊跟初步雛形
 ![image](./Project_progress/613進度.gif)
