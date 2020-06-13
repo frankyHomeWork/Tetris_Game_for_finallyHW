@@ -42,6 +42,9 @@ void printxy(char *str, int x, int y);
 void gotoxy(int x, int y);
 void setColor(int color);
 
+void showGameScore(int score);
+void showNextBlock(TetrisPoints tetrisPoints);
+void clearNextBlock(TetrisPoints tetrisPoints);
 
 void showCanvas(PointNode *pointNode);//for test
 
@@ -419,6 +422,51 @@ void showGameScore(int score) {
     strcat(score_txt, score_str);
     printxy(score_txt, 20, 10);
 }
+
+void showNextBlock(TetrisPoints tetrisPoints) {
+    printxy("..........", 19, 0);
+    int left_row_i;
+    for(left_row_i = 0 ; left_row_i <= 5 ; left_row_i++) {
+        printxy(".", 19, left_row_i);
+    }
+
+    int right_row_i;
+    for(right_row_i = 0 ; right_row_i <= 5 ; right_row_i++) {
+        printxy(".", 28, right_row_i);
+    }
+    printxy("..........", 19, 5);
+    
+    
+    PointNode *current = tetrisPoints.blocks;
+    
+    int shift_x = 22;
+    int shift_y = 1;
+    
+    while (current != NULL) {
+        if (current->p.val == 1) {
+            printxy("O", current->p.x + shift_x, current->p.y + shift_y);
+        }
+        current = current->next;
+    }
+    
+}
+
+void clearNextBlock(TetrisPoints tetrisPoints) {
+ 
+    PointNode *current = tetrisPoints.blocks;
+    
+    int shift_x = 22;
+    int shift_y = 1;
+    
+    while (current != NULL) {
+        if (current->p.val == 1) {
+            printxy(" ", current->p.x + shift_x, current->p.y + shift_y);
+        }
+        current = current->next;
+    }
+    
+}
+
 
 
 #ifdef DEBUG

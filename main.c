@@ -1,6 +1,7 @@
 #include <conio.h>
 #include <stdio.h>
 #include <windows.h>
+#include <stdbool.h>
 
 #include "gamePrinter.h"
 #include "userControl.h"
@@ -10,21 +11,26 @@
 int main() {
     initGameSurface();
     showGameSurface();
-    TetrisPoints T1 = getTetrisPoints2();
-    add_new_block(T1);
+    
+    TetrisPoints nextBlock = tetrisRandomFactory();
+    
+    bool first_time = true;
     while(1){
+        if(first_time) {
+            TetrisPoints first_block = tetrisRandomFactory();
+            add_new_block(first_block);
+            first_time = false;
+        }
+        
+        showNextBlock(nextBlock);
         if(isAddingBlock()) {
-            
             control_Block0();
-            
             shiftAndShow(0, 1);
             deleteLinkLine();
         } else{
-            check_is_GameOver();
-            showCanvas(getFixGameSurface_PointNode());
-            system("pause");
-            T1 = getTetrisPoints2();
-            add_new_block(T1);
+            clearNextBlock(nextBlock);
+            add_new_block(nextBlock);
+            nextBlock = tetrisRandomFactory();
         }
     }
 

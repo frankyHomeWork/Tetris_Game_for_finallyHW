@@ -14,8 +14,13 @@ typedef struct {
     int y;
 } TetrisPoints;
 
+TetrisPoints tetrisRandomFactory();
+
 TetrisPoints getTetrisPoints1();
 TetrisPoints getTetrisPoints2();
+TetrisPoints getTetrisPoints3();
+TetrisPoints getTetrisPoints4();
+TetrisPoints getTetrisPoints5();
 
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]);
 TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y);

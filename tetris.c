@@ -1,11 +1,49 @@
 #include "tetris.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include<time.h> 
 
 TetrisPoints getTetrisPoints1();
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]);
 TetrisPoints shiftTetrisPoints(TetrisPoints tetrisPoints, int x, int y);
 
+TetrisPoints tetrisRandomFactory();
+
+TetrisPoints getTetrisPoints1();
+TetrisPoints getTetrisPoints2();
+TetrisPoints getTetrisPoints3();
+TetrisPoints getTetrisPoints4();
+TetrisPoints getTetrisPoints5();
+
+
+TetrisPoints tetrisRandomFactory() {
+    static bool first_time = true;
+    if(first_time) {
+        srand(time(NULL));
+        first_time = false;
+    }
+    
+    int num = rand() % 5 + 1;
+    switch(num) {
+    case 1:
+        return getTetrisPoints1();
+        break;
+    case 2:
+        return getTetrisPoints2();
+        break;
+    case 3:
+        return getTetrisPoints3();
+        break;
+    case 4:
+        return getTetrisPoints4();
+        break;
+    case 5:
+        return getTetrisPoints5();
+        break;
+    default:
+        break;
+    }   
+}
 
 TetrisPoints getTetrisPoints1() {
     int block[FR_TETRIS_H][FR_TETRIS_W] = {
@@ -22,14 +60,46 @@ TetrisPoints getTetrisPoints1() {
 TetrisPoints getTetrisPoints2() {
     int block[FR_TETRIS_H][FR_TETRIS_W] = {
         {0, 0, 0, 0}, 
-        {0, 0, 0, 0}, 
         {0, 1, 1, 0}, 
-        {0, 1, 1, 0}};
+        {0, 1, 1, 0}, 
+        {0, 0, 0, 0}};
 
     TetrisPoints tetrisPoints = copy2TetrisPoints(block);
     return shiftTetrisPoints(tetrisPoints, 8, -4);
 }
 
+TetrisPoints getTetrisPoints3() {
+    int block[FR_TETRIS_H][FR_TETRIS_W] = {
+        {0, 1, 0, 0}, 
+        {0, 1, 0, 0}, 
+        {0, 1, 0, 0}, 
+        {0, 1, 0, 0}};
+
+    TetrisPoints tetrisPoints = copy2TetrisPoints(block);
+    return shiftTetrisPoints(tetrisPoints, 8, -4);
+}
+
+TetrisPoints getTetrisPoints4() {
+    int block[FR_TETRIS_H][FR_TETRIS_W] = {
+        {0, 0, 0, 0}, 
+        {0, 0, 0, 0}, 
+        {1, 1, 1, 1}, 
+        {0, 0, 0, 0}};
+
+    TetrisPoints tetrisPoints = copy2TetrisPoints(block);
+    return shiftTetrisPoints(tetrisPoints, 8, -4);
+}
+
+TetrisPoints getTetrisPoints5() {
+    int block[FR_TETRIS_H][FR_TETRIS_W] = {
+        {0, 0, 0, 0}, 
+        {0, 1, 0, 0}, 
+        {0, 0, 0, 0}, 
+        {0, 0, 0, 0}};
+
+    TetrisPoints tetrisPoints = copy2TetrisPoints(block);
+    return shiftTetrisPoints(tetrisPoints, 8, -4);
+}
 
 
 TetrisPoints copy2TetrisPoints(int block[FR_TETRIS_W][FR_TETRIS_H]) {

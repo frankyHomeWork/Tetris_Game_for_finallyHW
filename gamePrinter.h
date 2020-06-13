@@ -21,6 +21,9 @@ void deleteSurfaceLine(int row);
 void shiftDownSurfaceLine(int row);
 
 void showGameScore(int score);
+void showNextBlock(TetrisPoints tetrisPoints);
+void clearNextBlock(TetrisPoints tetrisPoints);
+// void showNextBlock();
 // for TEST
 void showCanvas(PointNode *pointNode);
 #endif
